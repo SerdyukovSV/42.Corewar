@@ -36,6 +36,7 @@ int main()
 
     wrefresh(win);
     getch();
+    //epfepgro
 
     delwin(win);
     endwin();
