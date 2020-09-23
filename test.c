@@ -11,37 +11,43 @@
 
 int main()
 {
-    const int width = 100;
-    const int height = 40;
+    // const int width = 100;
+    // const int height = 40;
 
-    if (!initscr())
-    {
-        fprintf(stderr, "Error initialising ncurses.\n");
-        exit(1);
-    }
+    // if (!initscr())
+    // {
+    //     fprintf(stderr, "Error initialising ncurses.\n");
+    //     exit(1);
+    // }
 
-    initscr();
-    curs_set(0);
-    refresh();
+    // initscr();
+    // curs_set(0);
+    // refresh();
 
-    int offsetx = (COLS - width) / 2;
-    int offsety = (LINES - height) / 2;
+    // int offsetx = (COLS - width) / 2;
+    // int offsety = (LINES - height) / 2;
 
-    WINDOW *win = newwin(height, width, offsety, offsetx);
+    // WINDOW *win = newwin(height, width, offsety, offsetx);
 
-    char hello[] = "Hello, world!";
+    // char hello[] = "Hello, world!";
 
-    mvaddstr(LINES/2, (COLS-strlen(hello))/2, hello);
-    box(win, 0, 0);
+    // mvaddstr(LINES/2, (COLS-strlen(hello))/2, hello);
+    // box(win, 0, 0);
 
-    wrefresh(win);
-    getch();
-    //epfepgro
+    // wrefresh(win);
+    // getch();
+    // //epfepgro
 
-    delwin(win);
-    endwin();
+    // delwin(win);
+    // endwin();
+    int i = 12;
+    printf("%d\n", i >> 2);
 }
 
-// 10010000
+// 10011100
 // 11000000 // 00110000 // 00001100
 // 00000010
+
+// 10011100
+// 00001100
+// 00001100 >> 2
