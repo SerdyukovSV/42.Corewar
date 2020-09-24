@@ -1,6 +1,21 @@
 #include "../../includes/corewar.h"
 
-int			print_usage()
+void	intro_player(t_vm *vm)
+{
+	int i;
+
+	i = 0;
+	ft_printf("Introduction players:\n");
+	while (vm->players[i])
+	{
+		ft_printf("* Player %d, size %d byte, \"%s\" (\"%s\")\n", \
+				vm->players[i]->id, vm->players[i]->isntr_size, \
+				vm->players[i]->name, vm->players[i]->comment);
+		i++;
+	}
+}
+
+int		print_usage()
 {
 	ft_printf("\e[1mUsage:\e[0m\n");
 	ft_printf("%s [-h] [-dump] [-n] file_champion.core\n", "./corewar");
