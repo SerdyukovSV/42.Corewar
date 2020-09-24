@@ -9,11 +9,22 @@
 # define MODA(x)         (x % MEM_SIZE < 0 ? x % MEM_SIZE + MEM_SIZE : x % MEM_SIZE)
 # define MODX(x)         (x % IDX_MOD)
 
-# define USAGE          -1
+/*
+** Flags
+*/
+
 # define DUMP           FT_BIT(0)
 # define NUM            FT_BIT(1)
 # define VIS            FT_BIT(2)
 # define EXT            ".core"
+
+/*
+** Error code
+*/
+
+# define USAGE          (-1)
+# define ERRABC         (1)
+# define ERRARG         (2)
 
 /*
 ** struct arena
@@ -29,6 +40,7 @@ typedef struct      s_op
     char            *description;
     int             args_type_code;
     int             carry;
+    int             t_dir_size;
 }                   t_op;
 
 typedef struct      s_cursor
@@ -42,6 +54,7 @@ typedef struct      s_cursor
     int             step;
     int             reg[REG_NUMBER];
     int             args_type[3];
+    t_op            *operation;
     struct s_cursor *next;
 }                   t_cursor;
 
@@ -91,6 +104,7 @@ void        init_cursor(t_vm *vm);
 */
 
 void        ft_parse_champion(t_vm *vm, char *file, int id);
+void        parse_args_byte_code(t_vm *vm, t_cursor *cursor);
 void        add_champion(t_vm *vm, t_player *player);
 void        ft_parse_args(t_vm *vm, char **argv);
 void        ft_parse_dump(t_vm *vm, char ***av);
@@ -101,9 +115,11 @@ int         is_number(char *str);
 ** Playing corewar
 */
 
-void        cw_to_playing(t_vm *vm);
+void        play_corewar(t_vm *vm);
 int         get_operation(t_vm *vm, t_cursor *cursor);
 int8_t      get_byte(t_vm *vm, int index);
+int         get_step(t_op *operation, int type_arg);
+int         validate_instr(t_vm *vm, t_cursor *cursor);
 
 /*
 ** Error processing & print functions

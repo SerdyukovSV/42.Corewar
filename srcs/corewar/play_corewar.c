@@ -8,6 +8,11 @@ void    exec_instr(t_vm *vm, t_cursor *cursor)
         cursor->cycles_to_exec--;
     if (cursor->cycles_to_exec == 0)
     {
+        if (cursor->operation)
+        {
+            parse_args_byte_code(vm, cursor);
+            // if ()
+        }
     }
 }
 
@@ -23,7 +28,7 @@ void    move_cursor(t_vm *vm)
     }
 }
 
-void    cw_to_playing(t_vm *vm)
+void    play_corewar(t_vm *vm)
 {
     while (vm->cursor)
     {
