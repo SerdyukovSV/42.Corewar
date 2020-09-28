@@ -1,6 +1,6 @@
 #include "../../includes/corewar.h"
 
-void    exec_instr(t_vm *vm, t_cursor *cursor)
+static void execute_instr(t_vm *vm, t_cursor *cursor)
 {
     if (cursor->cycles_to_exec == 0)
         get_operation(vm, cursor);
@@ -8,22 +8,28 @@ void    exec_instr(t_vm *vm, t_cursor *cursor)
         cursor->cycles_to_exec--;
     if (cursor->cycles_to_exec == 0)
     {
+        if (cursor->op)
+        {
+            parse_args_byte_code(vm, cursor);
+            if (!validate_instr(vm, cursor))
+                cursor->op->func(vm, cursor);
+        }
     }
 }
 
-void    move_cursor(t_vm *vm)
+static void move_cursor(t_vm *vm)
 {
     t_cursor *cursor;
 
     cursor = vm->cursor;
     while (cursor)
     {
-        exec_instr(vm, cursor);
+        execute_instr(vm, cursor);
         cursor = cursor->next;
     }
 }
 
-void    cw_to_playing(t_vm *vm)
+void        play_corewar(t_vm *vm)
 {
     while (vm->cursor)
     {

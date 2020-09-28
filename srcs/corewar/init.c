@@ -73,7 +73,7 @@ void        init_vm(t_vm *vm)
     vm->dump = -1;
     vm->flags = 0;
     vm->id = 0;
-    vm->last_alive = 0;
+    vm->last_alive = NULL;
     vm->nbr_checks = 0;
     vm->nbr_live = 0;
     vm->players_num = 0;
