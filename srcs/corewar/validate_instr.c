@@ -5,12 +5,13 @@ static int  check_args_types(t_vm *vm, t_cursor *cursor)
     int i;
 
     i = 0;
-    while (i < cursor->operation->args_num)
+    while (i < cursor->op->args_num)
     {
-        if (!(cursor->args_type[i] & cursor->operation->args_type[i]))
+        if (!(cursor->args_type[i] & cursor->op->args_type[i]))
             return (ERRABC);
         i++;
     }
+    return (0);
 }
 
 static int  check_args(t_vm *vm, t_cursor *cursor)
@@ -21,16 +22,18 @@ static int  check_args(t_vm *vm, t_cursor *cursor)
 
     i = 0;
     step = cursor->step;
-    while (i < cursor->operation->args_num)
+    while (i < cursor->op->args_num)
     {
         if (cursor->args_type[i] & T_REG)
         {
             value = get_byte(vm, step + 1);
-            if (!(value >= 0x01 && value <= 0x10))
+            if (!is_register(value))
                 return (ERRARG);
         }
-        step += get_step(cursor->operation, cursor->args_type[i]);
+        step += get_step(cursor->op, cursor->args_type[i]);
+        i++;
     }
+    return (0);
 }
 
 int         validate_instr(t_vm *vm, t_cursor *cursor)
