@@ -1,6 +1,6 @@
 #include "../../includes/corewar.h"
 
-void    ft_ldi(t_vm *vm, t_cursor *cursor)
+void    ft_lldi(t_vm *vm, t_cursor *cursor)
 {
     int addres;
     int value_1;
@@ -18,7 +18,7 @@ void    ft_ldi(t_vm *vm, t_cursor *cursor)
     id = get_arg_instr(vm, cursor, cursor->args_type[2], OFF);
     if (is_register(id))
     {
-        addres = cursor->pc + MODX((value_1 + value_2));
+        addres = cursor->pc + (value_1 + value_2);
         cursor->reg[id - 1] = bytecode_arg_to_int(vm, MODA(addres), REG_SIZE);
     }
 }

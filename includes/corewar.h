@@ -83,6 +83,7 @@ typedef struct      s_vm
     t_cursor        *cursor;
     t_player        *last_alive;
     int             players_num;
+    int             cursors_num;
     int             flags;
     int             dump;
     int             id;
@@ -105,6 +106,8 @@ void        set_op_tab(t_vm *vm);
 t_player    *creat_champion(int id);
 void        init_arena(t_vm *vm);
 void        init_cursor(t_vm *vm);
+t_cursor    *push_top_cursor(t_vm *vm);
+void        copy_cursor(t_cursor *dst, t_cursor *src);
 
 /*
 ** Parse functions
@@ -147,6 +150,12 @@ void        ft_or(t_vm *vm, t_cursor *cursor);
 void        ft_xor(t_vm *vm, t_cursor *cursor);
 void        ft_zjmp(t_vm *vm, t_cursor *cursor);
 void        ft_ldi(t_vm *vm, t_cursor *cursor);
+void        ft_sti(t_vm *vm, t_cursor *cursor);
+void        ft_fork(t_vm *vm, t_cursor *cursor);
+void        ft_lld(t_vm *vm, t_cursor *cursor);
+void        ft_lldi(t_vm *vm, t_cursor *cursor);
+void        ft_lfork(t_vm *vm, t_cursor *cursor);
+void        ft_aff(t_vm *vm, t_cursor *cursor);
 
 /*
 ** Error processing & print functions

@@ -25,21 +25,21 @@ t_op    op_tab[17] =
 	{"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG}, 8, 6, "ou (xor  r1, r2, r3   r1^r2 -> r3", 1, 0, 4, &ft_xor},
 	{"zjmp", 1, {T_DIR}, 9, 20, "jump if zero", 0, 1, 2, &ft_zjmp},
 	{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25, "load index", 1, 1, 2, &ft_ldi},
-	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25, "store index", 1, 1, 2, NULL},
-	{"fork", 1, {T_DIR}, 12, 800, "fork", 0, 1, 2, NULL},
-	{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 1, 0, 4, NULL},
-	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50, "long load index", 1, 1, 2, NULL},
-	{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1, 2, NULL},
-	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0, 4, NULL},
+	{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25, "store index", 1, 1, 2, &ft_sti},
+	{"fork", 1, {T_DIR}, 12, 800, "fork", 0, 1, 2, &ft_fork},
+	{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, "long load", 1, 0, 4, &ft_lld},
+	{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 14, 50, "long load index", 1, 1, 2, &ft_lldi},
+	{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1, 2, &ft_lfork},
+	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0, 4, &ft_aff},
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
 
 void	set_op_tab(t_vm *vm)
 {
-	// int i;
+	int i;
 
-	// i = -1;
-	// while (++i < 17)
-	// 	vm->op_tab[i] = op_tab[i];
-	ft_memcpy(vm->op_tab, op_tab, sizeof(t_op) * 17);
+	i = -1;
+	while (++i < 17)
+		vm->op_tab[i] = op_tab[i];
+	// ft_memcpy(vm->op_tab, op_tab, sizeof(t_op) * 17);
 }
