@@ -1,6 +1,12 @@
 #include "../../includes/corewar.h"
 
-static void execute_instr(t_vm *vm, t_cursor *cursor)
+static int  is_check_cycle(t_vm *vm)
+{
+    return (vm->cycles_to_check == vm->cycles_to_die || \
+            vm->cycles_to_die <= 0);
+}
+
+static void execute_instruction(t_vm *vm, t_cursor *cursor)
 {
     if (cursor->cycles_to_exec == 0)
         get_operation(vm, cursor);
@@ -13,18 +19,23 @@ static void execute_instr(t_vm *vm, t_cursor *cursor)
             parse_args_byte_code(vm, cursor);
             if (!validate_instr(vm, cursor))
                 cursor->op->func(vm, cursor);
+            else
+                cursor->step += get_all_steps(cursor);
         }
+        else
+            cursor->step++;
+        move_cursor(cursor);
     }
 }
 
-static void move_cursor(t_vm *vm)
+static void execute_cursors(t_vm *vm)
 {
     t_cursor *cursor;
 
     cursor = vm->cursor;
     while (cursor)
     {
-        execute_instr(vm, cursor);
+        execute_instruction(vm, cursor);
         cursor = cursor->next;
     }
 }
@@ -35,9 +46,9 @@ void        play_corewar(t_vm *vm)
     {
         if (vm->dump == vm->total_cycles)
             ;
-        move_cursor(vm);
-        if (vm->cycles_to_check == vm->cycles_to_die || vm->cycles_to_die <= 0)
-            ;
+        execute_cursors(vm);
+        if (is_check_cycle(vm))
+            check_cycle(vm);
         vm->total_cycles++;
         vm->cycles_to_check++;
     }
