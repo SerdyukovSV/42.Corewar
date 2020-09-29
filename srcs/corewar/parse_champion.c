@@ -3,13 +3,15 @@
 static int  bytecode_to_int(uint8_t *buffer, int size)
 {
     int result;
+    int sign;
     int i;
 
     i = 0;
     result = 0;
+    sign = buffer[0] & 0x80;
     while (i < size)
-        result = result * 256 + buffer[i++];
-    return (result);
+        result = result * 256 + (sign ? buffer[i++] ^ 0xff : buffer[i++]);
+    return (sign ? ~result : result);
 }
 
 static void parse_instr(t_vm *vm, uint8_t *dst, int fd, int size)

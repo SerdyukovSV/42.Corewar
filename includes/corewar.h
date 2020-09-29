@@ -11,6 +11,7 @@
 
 # define OPC_LEN        (1)
 # define ABC_LEN        (1)
+# define BYT_LEN        (1)
 
 # define ON             (1)
 # define OFF            (0)
@@ -130,11 +131,14 @@ void        play_corewar(t_vm *vm);
 int         get_operation(t_vm *vm, t_cursor *cursor);
 int8_t      get_byte(t_vm *vm, int index);
 int         get_step(t_op *operation, int type_arg);
+int         get_all_steps(t_cursor *cursor);
+void        move_cursor(t_cursor *cursor);
 int         validate_instr(t_vm *vm, t_cursor *cursor);
 int         get_arg_instr(t_vm *vm, t_cursor *cursor, int t_arg, int idx_mod);
 int         is_register(int reg_id);
 void        set_value_by_addres(t_vm *vm, int addres, int value, int size);
 int         bytecode_arg_to_int(t_vm *vm, int pc, int size);
+void        check_cycle(t_vm *vm);
 
 /*
 ** Instruction
