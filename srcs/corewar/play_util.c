@@ -15,16 +15,6 @@ int8_t      get_byte(t_vm *vm, int index)
     return (vm->arena[MODA(index)]);
 }
 
-int         get_step(t_op *operation, int type_arg)
-{
-    if (type_arg & T_REG)
-        return (1);
-    else if (type_arg & T_IND)
-        return (IND_SIZE);
-    else if (type_arg & T_DIR)
-        return (operation->t_dir_size);
-}
-
 int         get_operation(t_vm *vm, t_cursor *cursor)
 {
     int code;

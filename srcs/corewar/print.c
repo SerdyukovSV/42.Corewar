@@ -5,10 +5,10 @@ void	intro_player(t_vm *vm)
 	int i;
 
 	i = 0;
-	ft_printf("Introduction players:\n");
+	ft_printf("Introducing contestants...\n");
 	while (vm->players[i])
 	{
-		ft_printf("* Player %d, size %d byte, \"%s\" (\"%s\")\n", \
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\")\n", \
 				vm->players[i]->id, vm->players[i]->isntr_size, \
 				vm->players[i]->name, vm->players[i]->comment);
 		i++;
