@@ -138,7 +138,7 @@ int         get_arg_instr(t_vm *vm, t_cursor *cursor, int t_arg, int idx_mod);
 int         is_register(int reg_id);
 void        set_value_by_addres(t_vm *vm, int addres, int value, int size);
 int         bytecode_arg_to_int(t_vm *vm, int pc, int size);
-void        check_cycle(t_vm *vm);
+void        check_ctd_and_cursor(t_vm *vm);
 
 /*
 ** Instruction

@@ -48,7 +48,7 @@ void        play_corewar(t_vm *vm)
             ;
         execute_cursors(vm);
         if (is_check_cycle(vm))
-            check_cycle(vm);
+            check_ctd_and_cursor(vm);
         vm->total_cycles++;
         vm->cycles_to_check++;
     }

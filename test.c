@@ -92,29 +92,10 @@ int main()
 {
     int16_t val = -365;
     uint8_t buf[4096] = {0};
-    // uint8_t *ptr;
-    // ptr = (uint8_t *)&a;
-    // for (int i = 3; i >= 0; i--)
-    // {
-    //     buf[i] = *ptr++;
-    // }
-    // int8_t byte = -90;
-    // uint8_t sp = byte;
-    // printf("%d\n", sp);
-    set_value_by_addres(buf, 0, val, 2);
+    // set_value_by_addres(buf, 0, val, 2);
     // print_arena(buf, 4096);
-    // for (size_t i = 0; i < 4096; i++)
-    // {
-    //     if (buf[i] <= 0x10)
-    //         printf("0%x ", buf[i]);
-    //     else
-    //         printf("%x ", buf[i]);
-    //     if (((i + 1) % sp) == 0)
-    //         printf("\n");
-    // }
-    // printf("\n");
-    int res = bytecode_to_int(buf + 0, 2);
-    printf("res %d", res);
+    // int res = bytecode_to_int(buf + 0, 2);
+    // printf("res %d", res);
     // printf("res %d | MODX(res) = %d\n", res, MODX(res));
 }
 
