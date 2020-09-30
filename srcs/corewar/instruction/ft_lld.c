@@ -9,7 +9,7 @@ void    ft_lld(t_vm *vm, t_cursor *cursor)
     cursor->step += OPC_LEN;
     cursor->step += cursor->op->args_type_code;
     value = get_arg_instr(vm, cursor, cursor->args_type[0], OFF);
-    cursor->carry = (value == 0) ? 1 : 0;
+    cursor->carry = value ? 0 : 1;
     id = get_arg_instr(vm, cursor, cursor->args_type[1], OFF);
     if (is_register(id))
         cursor->reg[id - 1] = value;

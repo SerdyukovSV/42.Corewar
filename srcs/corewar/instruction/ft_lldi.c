@@ -20,5 +20,6 @@ void    ft_lldi(t_vm *vm, t_cursor *cursor)
     {
         addres = cursor->pc + (value_1 + value_2);
         cursor->reg[id - 1] = bytecode_arg_to_int(vm, MODA(addres), REG_SIZE);
+        cursor->carry = cursor->reg[id - 1] ? 0 : 1;
     }
 }
