@@ -13,6 +13,7 @@
 # define ABC_LEN        (1)
 # define BYT_LEN        (1)
 
+# define EXT            ".cor"
 # define ON             (1)
 # define OFF            (0)
 
@@ -20,10 +21,11 @@
 ** Flags
 */
 
-# define DUMP           FT_BIT(0)
-# define NUM            FT_BIT(1)
-# define VIS            FT_BIT(2)
-# define EXT            ".core"
+# define DUMP_32        FT_BIT(0)
+# define DUMP_64        FT_BIT(1)
+# define NUM            FT_BIT(2)
+# define VIS            FT_BIT(3)
+# define AFF            FT_BIT(4)
 
 /*
 ** Error code
@@ -32,6 +34,8 @@
 # define USAGE          (-1)
 # define ERRABC         (1)
 # define ERRARG         (2)
+
+int id_cursors;
 
 /*
 ** struct arena
@@ -48,7 +52,6 @@ typedef struct      s_op
     int             args_type_code;
     int             carry;
     int             t_dir_size;
-    void            (*func)(t_vm *vm, t_cursor *cursor);
 }                   t_op;
 
 typedef struct      s_cursor
@@ -97,7 +100,6 @@ typedef struct      s_vm
 
 }                   t_vm;
 
-
 /*
 ** Initialization functions
 */
@@ -114,12 +116,15 @@ void        copy_cursor(t_cursor *dst, t_cursor *src);
 ** Parse functions
 */
 
-void        ft_parse_champion(t_vm *vm, char *file, int id);
+void        parse_champion(t_vm *vm, char *file, int id);
 void        parse_args_byte_code(t_vm *vm, t_cursor *cursor);
 void        add_champion(t_vm *vm, t_player *player);
 void        ft_parse_args(t_vm *vm, char **argv);
-void        ft_parse_dump(t_vm *vm, char ***av);
-int         ft_parse_num(t_vm *vm, char *av);
+void        parse_dump(t_vm *vm, char ***av);
+void        parse_aff(t_vm *vm, char ***av);
+int         parse_id_champ(t_vm *vm, char *av);
+int         is_extension(char *av, char *ext);
+void        update_champion_id(t_vm *vm);
 int         is_number(char *str);
 // int         bytecode_to_int(uint8_t *buffer, int size);
 
@@ -136,7 +141,7 @@ void        move_cursor(t_cursor *cursor);
 int         validate_instr(t_vm *vm, t_cursor *cursor);
 int         get_arg_instr(t_vm *vm, t_cursor *cursor, int t_arg, int idx_mod);
 int         is_register(int reg_id);
-void        set_value_by_addres(t_vm *vm, int addres, int value, int size);
+void        set_int_by_addres(t_vm *vm, int addres, int value, int size);
 int         bytecode_arg_to_int(t_vm *vm, int pc, int size);
 void        check_ctd_and_cursor(t_vm *vm);
 
@@ -165,8 +170,11 @@ void        ft_aff(t_vm *vm, t_cursor *cursor);
 ** Error processing & print functions
 */
 
-int			print_usage();
+void        print_usage();
 void        intro_player(t_vm *vm);
-void		ft_error(t_vm *vm, int code);
+void        print_arena(t_vm *vm);
+void        print_winner(t_vm *vm);
+void        ft_free(t_vm *vm);
+void		ft_exit(t_vm *vm, int code);
 
 #endif

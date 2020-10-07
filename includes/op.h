@@ -13,6 +13,7 @@
 #ifndef OP_H
 # define OP_H
 
+# include "corewar.h"
 /*
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?

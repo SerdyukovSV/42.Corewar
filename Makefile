@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-TARGET	:= lem-in
+TARGET	:= corewar
 CFLAGS 	:= -Wall -Werror -Wextra
 CC 		:= gcc
 
@@ -19,17 +19,23 @@ LIBFT	:= ./libft/libft.a
 INC		:= ./includes/
 LFT_DIR := ./libft/
 OBJ_DIR	:= ./obj/
-SRC_DIR	:= ./srcs/
 
 # Source files
-SRCS 	:= main.c lem_read.c lem_validate.c \
-			lem_init.c get_ants.c get_rooms.c get_links.c \
-			pth_getpaths.c pth_search_path.c pth_utility.c \
-			lem_play.c lem_errors.c lem_free.c options.c
+FILE 	:= srcs/corewar/check_play.c srcs/corewar/error.c srcs/corewar/free.c srcs/corewar/init_cursor.c srcs/corewar/init.c srcs/corewar/main.c srcs/corewar/move_cursor.c srcs/corewar/op.c \
+			srcs/corewar/parse_abc.c srcs/corewar/parse_args.c srcs/corewar/parse_champion.c srcs/corewar/parse_flags.c srcs/corewar/parse_util.c srcs/corewar/play_corewar.c srcs/corewar/play_util.c \
+			srcs/corewar/print.c srcs/corewar/validate_instr.c srcs/corewar/init_champ.c
+
+INSTR	:= srcs/corewar/instruction/ft_add.c srcs/corewar/instruction/ft_aff.c srcs/corewar/instruction/ft_and.c srcs/corewar/instruction/ft_fork.c srcs/corewar/instruction/ft_ld.c srcs/corewar/instruction/ft_ldi.c \
+			srcs/corewar/instruction/ft_lfork.c srcs/corewar/instruction/ft_live.c srcs/corewar/instruction/ft_lld.c srcs/corewar/instruction/ft_lldi.c srcs/corewar/instruction/ft_or.c srcs/corewar/instruction/ft_st.c \
+			srcs/corewar/instruction/ft_sti.c srcs/corewar/instruction/ft_sub.c srcs/corewar/instruction/ft_xor.c srcs/corewar/instruction/ft_zjmp.c srcs/corewar/instruction/instr_util.c
+
+SRCS	+= $(notdir $(FILE))
+SRCS	+= $(notdir $(INSTR))
 
 HEADER	:= includes/*.h
 
-vpath %.c srcs/
+vpath %.c srcs/corewar/instruction/
+vpath %.c srcs/corewar/
 vpath %.h includes/
 
 # Object files
@@ -50,7 +56,7 @@ $(TARGET): $(LIBFT) $(OBJF)
 	@$(CC) $^ -o $@ $(LIBFT)
 	@printf "\n$(GREEN)compiled: $(WHITE)$(TARGET)$(EOC)\n"
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) Makefile
+$(OBJ_DIR)%.o: %.c $(HEADER) Makefile
 	@printf "$(DBLUE) - Compiling $< into $@\r$(EOC)"
 	@$(CC) $(CFLAGS) -I $(INC) -I $(LFT_DIR)/includes -c $< -o $@
 
