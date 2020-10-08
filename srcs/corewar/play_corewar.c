@@ -1,44 +1,77 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   play_corewar.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/10/07 20:33:38 by gartanis          #+#    #+#             */
+/*   Updated: 2020/10/07 20:34:50 by gartanis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/corewar.h"
 
-static void execute_instr(t_vm *vm, t_cursor *cursor)
+void		(*g_function[16])(t_vm *, t_cursor *) =
 {
-    if (cursor->cycles_to_exec == 0)
-        get_operation(vm, cursor);
-    else if (cursor->cycles_to_exec > 0)
-        cursor->cycles_to_exec--;
-    if (cursor->cycles_to_exec == 0)
-    {
-        if (cursor->op)
-        {
-            parse_args_byte_code(vm, cursor);
-            if (!validate_instr(vm, cursor))
-                cursor->op->func(vm, cursor);
-        }
-    }
+	ft_live, ft_ld, ft_st, ft_add, ft_sub, ft_and,
+	ft_or, ft_xor, ft_zjmp, ft_ldi, ft_sti, ft_fork,
+	ft_lld, ft_lldi, ft_lfork, ft_aff
+};
+
+static int	is_check_cycle(t_vm *vm)
+{
+	return (vm->cycles_to_check == vm->cycles_to_die || \
+			vm->cycles_to_die <= 0);
 }
 
-static void move_cursor(t_vm *vm)
+static void	execute_instruction(t_vm *vm, t_cursor *cursor)
 {
-    t_cursor *cursor;
-
-    cursor = vm->cursor;
-    while (cursor)
-    {
-        execute_instr(vm, cursor);
-        cursor = cursor->next;
-    }
+	if (cursor->cycles_to_exec == 0)
+		get_operation(vm, cursor);
+	if (cursor->cycles_to_exec > 0)
+		cursor->cycles_to_exec--;
+	if (cursor->cycles_to_exec == 0)
+	{
+		if (cursor->op)
+		{
+			parse_args_byte_code(vm, cursor);
+			if (!validate_instr(vm, cursor))
+				g_function[cursor->op_code - 1](vm, cursor);
+			else
+				cursor->step = get_all_steps(cursor);
+			ft_bzero(cursor->args_type, sizeof(int) * 3);
+			cursor->op = NULL;
+		}
+		else
+			cursor->step++;
+		move_cursor(cursor);
+	}
 }
 
-void        play_corewar(t_vm *vm)
+static void	execute_cursors(t_vm *vm)
 {
-    while (vm->cursor)
-    {
-        if (vm->dump == vm->total_cycles)
-            ;
-        move_cursor(vm);
-        if (vm->cycles_to_check == vm->cycles_to_die || vm->cycles_to_die <= 0)
-            ;
-        vm->total_cycles++;
-        vm->cycles_to_check++;
-    }
+	t_cursor *cursor;
+
+	vm->total_cycles++;
+	vm->cycles_to_check++;
+	cursor = vm->cursor;
+	while (cursor)
+	{
+		execute_instruction(vm, cursor);
+		cursor = cursor->next;
+	}
+}
+
+void		play_corewar(t_vm *vm)
+{
+	while (vm->cursors_num > 0)
+	{
+		if (vm->dump == vm->total_cycles && \
+				(vm->flags & DUMP_32 || vm->flags & DUMP_64))
+			print_arena(vm);
+		execute_cursors(vm);
+		if (is_check_cycle(vm))
+			check_ctd_and_cursor(vm);
+	}
 }
