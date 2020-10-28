@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 19:48:29 by gartanis          #+#    #+#             */
-/*   Updated: 2020/10/07 19:48:31 by gartanis         ###   ########.fr       */
+/*   Created: 2020/10/24 13:28:43 by gartanis          #+#    #+#             */
+/*   Updated: 2020/10/24 13:28:46 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ void	init_arena(t_vm *vm)
 
 void	init_vm(t_vm *vm)
 {
+	int	i;
+
+	i = -1;
 	vm->cursor = NULL;
+	vm->tmp_cursor = NULL;
 	vm->cycles_to_die = CYCLE_TO_DIE;
 	vm->dump = -1;
 	vm->flags = 0;
@@ -44,4 +48,10 @@ void	init_vm(t_vm *vm)
 	vm->cycles_to_check = 0;
 	ft_bzero(vm->arena, sizeof(uint8_t) * MEM_SIZE);
 	ft_bzero(vm->players, sizeof(t_player *) * 4);
+	vm->is_init_viz = 0;
+	vm->flag_vs = 0;
+	vm->pause = 0;
+	vm->speed = MIN_SPEED;
+	while (++i < MEM_SIZE)
+		vm->color_arena[i] = 5;
 }

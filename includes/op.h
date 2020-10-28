@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   op.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/09/16 15:27:29 by gartanis         ###   ########.fr       */
+/*   Created: 2020/10/24 14:15:15 by gartanis          #+#    #+#             */
+/*   Updated: 2020/10/24 14:15:20 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OP_H
 # define OP_H
 
-# include "corewar.h"
 /*
 ** Toutes les tailles sont en octets.
 ** On part du principe qu'un int fait 32 bits. Est-ce vrai chez vous ?
@@ -29,9 +28,9 @@
 
 # define MAX_ARGS_NUMBER			4
 # define MAX_PLAYERS				4
-# define MEM_SIZE					(4*1024)
-# define IDX_MOD					(MEM_SIZE / 8)
-# define CHAMP_MAX_SIZE				(MEM_SIZE / 6)
+# define MEM_SIZE					4096
+# define IDX_MOD					512
+# define CHAMP_MAX_SIZE				682
 
 # define COMMENT_CHAR				'#'
 # define LABEL_CHAR					':'
@@ -57,8 +56,8 @@ typedef char	t_arg_type;
 # define T_IND						4
 # define T_LAB						8
 
-# define PROG_NAME_LENGTH			(128)
-# define COMMENT_LENGTH				(2048)
+# define PROG_NAME_LENGTH			128
+# define COMMENT_LENGTH				2048
 # define COREWAR_EXEC_MAGIC			0xea83f3
 
 typedef struct		s_header

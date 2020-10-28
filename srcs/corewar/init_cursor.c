@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 19:45:42 by gartanis          #+#    #+#             */
-/*   Updated: 2020/10/07 19:45:52 by gartanis         ###   ########.fr       */
+/*   Created: 2020/10/24 14:02:36 by gartanis          #+#    #+#             */
+/*   Updated: 2020/10/24 14:02:38 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ void		copy_cursor(t_cursor *dst, t_cursor *src)
 	ft_bzero(dst->args_type, sizeof(int) * 3);
 	dst->op = NULL;
 	dst->step = 0;
+	dst->clr = src->clr;
 }
 
 void		fill_cursor(t_cursor *new, int addres, int id_player)
 {
 	new->carry = 0;
 	new->cycles_to_exec = 0;
-	new->id = ++id_cursors;
+	new->id = ++g_id_cursors;
 	new->last_live = 0;
 	new->op_code = 0;
 	new->pc = addres;
@@ -57,11 +58,12 @@ void		init_cursor(t_vm *vm)
 	int			i;
 
 	i = 0;
-	id_cursors = 0;
+	g_id_cursors = 0;
 	while (i < vm->players_num)
 	{
 		tmp = push_top_cursor(vm);
 		fill_cursor(tmp, vm->players[i]->location, vm->players[i]->id);
+		tmp->clr = vm->players[i]->id;
 		i++;
 	}
 }

@@ -19,7 +19,7 @@ void		(*g_function[16])(t_vm *, t_cursor *) =
 	ft_lld, ft_lldi, ft_lfork, ft_aff
 };
 
-static int	is_check_cycle(t_vm *vm)
+int			is_check_cycle(t_vm *vm)
 {
 	return (vm->cycles_to_check == vm->cycles_to_die || \
 			vm->cycles_to_die <= 0);
@@ -49,7 +49,7 @@ static void	execute_instruction(t_vm *vm, t_cursor *cursor)
 	}
 }
 
-static void	execute_cursors(t_vm *vm)
+void		execute_cursors(t_vm *vm)
 {
 	t_cursor *cursor;
 
@@ -65,13 +65,9 @@ static void	execute_cursors(t_vm *vm)
 
 void		play_corewar(t_vm *vm)
 {
-	while (vm->cursors_num > 0)
-	{
-		if (vm->dump == vm->total_cycles && \
-				(vm->flags & DUMP_32 || vm->flags & DUMP_64))
-			print_arena(vm);
-		execute_cursors(vm);
-		if (is_check_cycle(vm))
-			check_ctd_and_cursor(vm);
-	}
+	if (vm->flag_vs)
+		play_visual(vm);
+	else
+		while (vm->cursors_num > 0)
+			play_cycle(vm);
 }

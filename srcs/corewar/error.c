@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 19:16:05 by gartanis          #+#    #+#             */
-/*   Updated: 2020/10/07 19:37:05 by gartanis         ###   ########.fr       */
+/*   Created: 2020/10/24 13:27:16 by gartanis          #+#    #+#             */
+/*   Updated: 2020/10/24 13:27:42 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static char	*g_error[] = {
 
 void		ft_exit(t_vm *vm, int code)
 {
-	ft_free(vm);
+	if (vm != NULL)
+		ft_free(vm);
 	if (code == USAGE)
 		print_usage();
 	else if (errno == 0)

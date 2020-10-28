@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2020/10/07 19:59:05 by gartanis         ###   ########.fr       */
+/*   Created: 2020/10/24 14:04:28 by gartanis          #+#    #+#             */
+/*   Updated: 2020/10/24 14:04:31 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,5 @@ void	set_op_tab(t_vm *vm)
 
 	i = -1;
 	while (++i < 17)
-		vm->op_tab[i] = g_op_tab[i];
+		ft_memcpy(&vm->op_tab[i], &g_op_tab[i], sizeof(t_op));
 }

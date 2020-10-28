@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 20:39:20 by gartanis          #+#    #+#             */
-/*   Updated: 2020/10/07 20:39:22 by gartanis         ###   ########.fr       */
+/*   Created: 2020/10/24 14:09:08 by gartanis          #+#    #+#             */
+/*   Updated: 2020/10/24 14:09:13 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	print_usage(void)
 	ft_printf("USAGE: ./corewar [options] <input champion*.cor>\n\n");
 	ft_printf("OPTIONS:\n");
 	ft_printf("%7s\t\t%s\n", "-a  ", "- Prints output from \"aff\"");
+	ft_printf("%7s\t\t%s\n", "-v  ", "- Use visualization mode");
 	ft_printf("%7s\t\t%s\n", "-n N", "- Set champion id number");
 	ft_printf("%7s\t\t%s\n", "-d N", \
 	"- Dumps memory (64 octets) after N cycles then exits");

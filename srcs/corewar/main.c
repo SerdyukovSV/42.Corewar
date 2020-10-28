@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gartanis <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/07 19:49:46 by gartanis          #+#    #+#             */
-/*   Updated: 2020/10/07 19:50:08 by gartanis         ###   ########.fr       */
+/*   Created: 2020/10/24 14:02:52 by gartanis          #+#    #+#             */
+/*   Updated: 2020/10/24 14:02:55 by gartanis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_vm vm;
 
 	if (argc < 2)
-		ft_exit(&vm, USAGE);
+		ft_exit(NULL, USAGE);
 	init_vm(&vm);
 	set_op_tab(&vm);
 	ft_parse_args(&vm, argv);
@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 	init_cursor(&vm);
 	intro_player(&vm);
 	play_corewar(&vm);
+	endwin();
 	print_winner(&vm);
 	ft_free(&vm);
 	return (EXIT_SUCCESS);
